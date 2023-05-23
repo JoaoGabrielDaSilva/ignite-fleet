@@ -13,6 +13,7 @@ import { useRealm } from "../libs/realm";
 import { Historic } from "../libs/realm/schemas/Historic";
 import { useUser } from "@realm/react";
 import { useNavigation } from "@react-navigation/native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export const Departure = () => {
   const [licensePlate, setLicensePlate] = useState("");
@@ -71,43 +72,39 @@ export const Departure = () => {
     <Box flex="1" bg="gray.800">
       <Header title="Saída" />
 
-      <KeyboardAvoidingView
-        flex="1"
-        behavior={Platform.OS === "android" ? "height" : "position"}
+      <KeyboardAwareScrollView
+        extraHeight={100}
+        keyboardShouldPersistTaps="always"
+        contentContainerStyle={{
+          padding: 16,
+        }}
       >
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{
-            padding: 16,
-          }}
-        >
-          <VStack space="4">
-            <LicensePlateInput
-              ref={licensePlateRef}
-              label="Placa do Veículo"
-              placeholder="BRA1234"
-              blurOnSubmit={false}
-              onSubmitEditing={() => descriptionRef?.current?.focus()}
-              onChangeText={setLicensePlate}
-              editable={!isRegistering}
-            />
+        <VStack space="4">
+          <LicensePlateInput
+            ref={licensePlateRef}
+            label="Placa do Veículo"
+            placeholder="BRA1234"
+            blurOnSubmit={false}
+            onSubmitEditing={() => descriptionRef?.current?.focus()}
+            onChangeText={setLicensePlate}
+            editable={!isRegistering}
+          />
 
-            <TextAreaInput
-              ref={descriptionRef}
-              label="Finalidade"
-              placeholder="Vou utilizar o carro para..."
-              onSubmitEditing={handleDepartureRegister}
-              returnKeyType="send"
-              blurOnSubmit
-              onChangeText={setDescription}
-              editable={!isRegistering}
-            />
-            <Button isLoading={isRegistering} onPress={handleDepartureRegister}>
-              Registrar Saída
-            </Button>
-          </VStack>
-        </ScrollView>
-      </KeyboardAvoidingView>
+          <TextAreaInput
+            ref={descriptionRef}
+            label="Finalidade"
+            placeholder="Vou utilizar o carro para..."
+            onSubmitEditing={handleDepartureRegister}
+            returnKeyType="send"
+            blurOnSubmit
+            onChangeText={setDescription}
+            editable={!isRegistering}
+          />
+          <Button isLoading={isRegistering} onPress={handleDepartureRegister}>
+            Registrar Saída
+          </Button>
+        </VStack>
+      </KeyboardAwareScrollView>
     </Box>
   );
 };

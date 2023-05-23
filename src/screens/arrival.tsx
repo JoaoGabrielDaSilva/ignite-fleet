@@ -57,7 +57,9 @@ export const Arrival = ({ route: { params } }) => {
 
   return (
     <Box flex="1" bg="gray.800">
-      <Header title="Chegada" />
+      <Header
+        title={vehicle?.status === "departure" ? "Chegada" : "Detalhes"}
+      />
       <VStack flex="1">
         <VStack p="6" mt="4" space="8">
           <Box>
@@ -83,19 +85,21 @@ export const Arrival = ({ route: { params } }) => {
           </Box>
         </VStack>
       </VStack>
-      <HStack p="6" space="4">
-        <IconButton
-          onPress={handleRemoveVehicleUsage}
-          icon={
-            <Icon
-              as={<Ionicons name="close" />}
-              color="brand.medium"
-              size="3xl"
-            />
-          }
-        />
-        <Button onPress={handleArrivalRegister}>Registar Chegada</Button>
-      </HStack>
+      {vehicle?.status === "departure" ? (
+        <HStack p="6" space="4">
+          <IconButton
+            onPress={handleRemoveVehicleUsage}
+            icon={
+              <Icon
+                as={<Ionicons name="close" />}
+                color="brand.medium"
+                size="3xl"
+              />
+            }
+          />
+          <Button onPress={handleArrivalRegister}>Registar Chegada</Button>
+        </HStack>
+      ) : null}
     </Box>
   );
 };
