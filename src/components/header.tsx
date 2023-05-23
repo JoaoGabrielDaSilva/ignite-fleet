@@ -10,6 +10,7 @@ import {
 import { Image } from "expo-image";
 import { useApp, useUser } from "@realm/react";
 import { Ionicons } from "@expo/vector-icons";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const blurhash = "L184i9kCbIof00ayjZay~qj[ayj@";
 
@@ -17,16 +18,18 @@ export const Header = () => {
   const user = useUser();
   const app = useApp();
 
+  const insets = useSafeAreaInsets();
+
   const handleLogout = () => {
     app.currentUser?.logOut();
   };
 
   return (
     <HStack
-      pt="10"
+      pt={`${insets.top + 32}px`}
+      pb="4"
       pl="6"
       pr="2"
-      pb="4"
       alignItems="center"
       bg="gray.700"
       justifyContent="space-between"
