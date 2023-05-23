@@ -1,5 +1,8 @@
 import { ReactNode } from "react";
+import { AppProvider, UserProvider } from "@realm/react";
 import { NativeBaseProvider } from "native-base";
+import { REALM_APP_ID } from "@env";
+
 import { theme } from "../theme";
 
 type ProvidersProps = {
@@ -7,5 +10,9 @@ type ProvidersProps = {
 };
 
 export const Providers = ({ children }: ProvidersProps) => {
-  return <NativeBaseProvider theme={theme}>{children}</NativeBaseProvider>;
+  return (
+    <AppProvider id={REALM_APP_ID}>
+      <NativeBaseProvider theme={theme}>{children}</NativeBaseProvider>
+    </AppProvider>
+  );
 };
