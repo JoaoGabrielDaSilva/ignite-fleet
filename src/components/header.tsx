@@ -1,67 +1,40 @@
-import {
-  Box,
-  HStack,
-  Icon,
-  IconButton,
-  Text,
-  VStack,
-  useToken,
-} from "native-base";
-import { Image } from "expo-image";
-import { useApp, useUser } from "@realm/react";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { HStack, Icon, IconButton, Text } from "native-base";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const blurhash = "L184i9kCbIof00ayjZay~qj[ayj@";
+type HeaderProps = {
+  title: string;
+};
 
-export const Header = () => {
-  const user = useUser();
-  const app = useApp();
-
+export const Header = ({ title }: HeaderProps) => {
   const insets = useSafeAreaInsets();
-
-  const handleLogout = () => {
-    app.currentUser?.logOut();
-  };
+  const { goBack } = useNavigation();
 
   return (
     <HStack
-      pt={`${insets.top + 32}px`}
-      pb="4"
-      pl="6"
-      pr="2"
-      alignItems="center"
+      pr="6"
+      px="2"
+      pt={`${insets.top + 12}px`}
+      pb="2"
       bg="gray.700"
+      alignItems="center"
       justifyContent="space-between"
     >
-      <HStack alignItems="center">
-        <Box rounded="md" w="12" h="12" overflow="hidden">
-          <Image
-            style={{
-              flex: 1,
-            }}
-            source={{ uri: user?.profile.pictureUrl }}
-            placeholder={blurhash}
-          />
-        </Box>
-        <VStack ml="4">
-          <Text color="gray.100" fontFamily="regular" fontSize="md">
-            Olá,{" "}
-          </Text>
-          <Text fontFamily="bold" fontSize="lg" color="gray.100">
-            {user?.profile.name}
-          </Text>
-        </VStack>
-      </HStack>
       <IconButton
-        onPress={handleLogout}
-        _pressed={{
-          bg: "transparent",
-        }}
+        onPress={goBack}
+        variant="unstyled"
         icon={
-          <Icon as={<Ionicons name="ios-power" />} color="gray.400" size="lg" />
+          <Icon
+            as={<Ionicons name="arrow-back" />}
+            size="2xl"
+            color="brand.medium"
+          />
         }
       />
+      <Text color="gray.100" fontFamily="bold" fontSize="xl">
+        {title}
+      </Text>
     </HStack>
   );
 };
