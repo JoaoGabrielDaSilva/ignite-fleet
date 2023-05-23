@@ -29,7 +29,7 @@ export const HomeHeader = () => {
       pt={`${insets.top + 32}px`}
       pb="4"
       pl="6"
-      pr="2"
+      pr="4"
       alignItems="center"
       bg="gray.700"
       justifyContent="space-between"
@@ -48,7 +48,7 @@ export const HomeHeader = () => {
           <Text color="gray.100" fontFamily="regular" fontSize="md">
             Olá,{" "}
           </Text>
-          <Text fontFamily="bold" fontSize="lg" color="gray.100">
+          <Text fontFamily="bold" fontSize="md" color="gray.100">
             {user?.profile.name}
           </Text>
         </VStack>
