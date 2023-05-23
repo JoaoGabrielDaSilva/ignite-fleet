@@ -1,12 +1,24 @@
+import {
+  useFonts,
+  Roboto_400Regular,
+  Roboto_700Bold,
+} from "@expo-google-fonts/roboto";
 import { StatusBar } from "expo-status-bar";
-import { NativeBaseProvider, Box } from "native-base";
+import { Box } from "native-base";
+import { SignIn } from "./src/screens";
+import { Providers } from "./src/components/providers";
 
 export default function App() {
+  const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
+
+  if (!fontsLoaded) return null;
+
   return (
-    <NativeBaseProvider>
+    <Providers>
       <Box flex="1">
-        <StatusBar style="auto" />
+        <StatusBar style="light" backgroundColor="transparent" translucent />
+        <SignIn />
       </Box>
-    </NativeBaseProvider>
+    </Providers>
   );
 }
